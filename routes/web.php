@@ -21,5 +21,15 @@ $router->get('hello/{id}',function($id) {
 	echo 'your id is '.$id;
 });
 $router->get('user[/{name}]', function ($name = null) {
-    return $name;
+	$data = [];
+	$data["username"]=$name;
+    return json_encode($data);
 });
+
+$router->group(['prefix' => 'api'], function() use ($router) {
+    $router->post('car', 'CarController@createCar');
+    $router->put('car/{id}', 'CarController@updateCar');
+    $router->delete('car/{id}', 'CarController@deleteCar');
+    $router->get('car', 'CarController@index');
+});
+
